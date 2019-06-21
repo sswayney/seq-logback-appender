@@ -1,0 +1,42 @@
+<included>
+    <!--SEQ LOGGING-->
+    <!--Include this file as a resource in your main logback settings per project-->
+    <!--You may override SEQ_LAYOUT class to use your own-->
+
+    <!--Properties from application.yaml-->
+    <springProperty name="batchCount" source="seq.batchCount"/>
+    <springProperty name="server" source="seq.server"/>
+    <springProperty name="port" source="seq.port"/>
+    <springProperty name="apiKey" source="seq.apiKey"/>
+    <springProperty name="fileName" source="seq.fileName"/>
+
+    <!-- Default layout class and overrideable seq layout property to be overridden in main settings context-->
+    <property name="DEFAULT_SEQ_LAYOUT" value="com.conversantmedia.cpeui.shared.util.seq.SeqLogEventLayout"/>
+    <property name="SEQ_LAYOUT" value="${SEQ_LAYOUT}:-${DEFAULT_SEQ_LAYOUT}"/>
+
+    <!--main functional appender, do not use directly unless you don't want it to be async-->
+    <appender name="ASYNC_SEQ" class="com.conversantmedia.cpeui.shared.util.seq.SeqAppenderAsync">
+        <server>${server}</server>
+        <port>${port}</port>
+        <apiKey>${apiKey}</apiKey>
+        <eventBatchCount>${batchCount}</eventBatchCount>
+        <layout class="${SEQ_LAYOUT}" />
+    </appender>
+
+    <!--appender to use in main logback file-->
+    <appender name="SEQ" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="ASYNC_SEQ" />
+    </appender>
+
+    <!--Log all events to a rolling file in case of an issue-->
+    <appender name="SEQ-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="${SEQ_LAYOUT}" />
+        </encoder>
+        <file>${fileName}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${fileName}.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+</included>

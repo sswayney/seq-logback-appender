@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="seqlogback:main" external.linked.project.path="$MODULE_DIR$/../../seqlogback" external.root.project.path="$MODULE_DIR$/../../seqlogback" external.system.id="GRADLE" external.system.module.group="com.conversantmedia.logback" external.system.module.type="sourceSet" external.system.module.version="0.0.1-SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/../../seqlogback/out/production/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../seqlogback/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../seqlogback/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../seqlogback/src/main/resources" type="java-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:1.5.21.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:1.5.21.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:1.5.21.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:1.5.21.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.3.24.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:4.3.24.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.3.24.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-expression:4.3.24.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.3.24.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.1.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.26" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.yaml:snakeyaml:1.17" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.26" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:log4j-over-slf4j:1.7.26" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok:1.16.22" level="project" />
+    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.1.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.26" level="project" />
+  </component>
+</module>
