@@ -20,7 +20,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
-
 /**
  * SeqAppenderAsync handles logback logging events and posts them to a seq server inject end point
  * Given the configurations passed to the class, the post may contain multiple events
@@ -42,6 +41,9 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
     @Getter @Setter private String server = "";
     @Getter @Setter private String port = "";
     @Getter @Setter private int eventBatchCount = 1;
+    
+    private  CloseableHttpAsyncClient httpClient;
+    private Future<HttpResponse> execute;
 
     private String getServerIngestUrl(){
         return port.equals("") ? server + INGEST_ENDPOINT : server + ":" + port + INGEST_ENDPOINT;
@@ -63,6 +65,12 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
         addStatus(new InfoStatus("Seq Server Api Key: " + this.apiKey,this));
         addStatus(new InfoStatus("Seq Server Batch Count: " + this.eventBatchCount,this));
 
+        httpClient = HttpAsyncClientBuilder.create().setDefaultRequestConfig(RequestConfig
+				.custom().setConnectTimeout(4000).setSocketTimeout(10000).setConnectionRequestTimeout(4000).build())
+				.build();
+
+        httpClient.start();
+        
         super.start();
     }
 
@@ -102,15 +110,6 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
     private void postLogs() {
         String bodyString = getPostBody();
         eventList.clear();
-        CloseableHttpAsyncClient httpClient = HttpAsyncClientBuilder.create()
-                .setDefaultRequestConfig(
-                        RequestConfig.custom()
-                                .setConnectTimeout(2000)
-                                .setSocketTimeout(10000)
-                                .setConnectionRequestTimeout(2000)
-                                .build())
-                .build();
-
         HttpPost post = null;
         try {
             StringEntity entity = new StringEntity(bodyString);
@@ -123,10 +122,14 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
             addStatus(new ErrorStatus("Post body: " + bodyString,this));
             return;
         }
-
-        httpClient.start();
         try {
-            Future<HttpResponse> execute = httpClient.execute(post, null);
+             execute = httpClient.execute(post, null);
+            //This is required because if there is any delay in communication
+            //then the execution will take some time- a call to execute.get() will
+            //result in an InterruptedException
+            do {
+            	//Wait until we can successfully post logs
+            }while(!execute.isDone());
             HttpResponse response = execute.get();
             final int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != 201) {
@@ -135,13 +138,21 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
             }
         } catch (Exception e) {
             addStatus(new ErrorStatus("Error while reading response from Seq",this));
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                addStatus(new ErrorStatus("Error on closing httpClient in SeqAppender" + e.getMessage(),this));
-            }
         }
+    }
+    
+    @Override
+    public void stop() {
+        try {
+            do {
+            	//Wait until any current post is done
+            	//before we try abd close the connection
+            }while(!execute.isDone());
+            httpClient.close();
+        } catch (IOException e) {
+            addStatus(new ErrorStatus("Error on closing httpClient in SeqAppender" + e.getMessage(),this));
+        }
+        super.stop();
     }
 
     /**

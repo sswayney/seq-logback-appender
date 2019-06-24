@@ -14,33 +14,38 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-/**
+//**
  * Base Class responsible for formatting ILoggingEvents as json objects to be sent to seq server
  */
 public class SeqLogEventLayout extends LayoutBase<ILoggingEvent> {
-    protected final Format dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+	protected final Format dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
-    @Override
-    public String doLayout(ILoggingEvent event) {
-        return this.getLogEntryJsonString(new SeqLogEntry(event, dateFormat));
-    }
+	private ObjectMapper jacksonObjectMapper = new ObjectMapper()
+			.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-    /**
-     * Serializes a SeqLogEntry as a json string
-     * @param logEntry
-     * @return json formatted String of the SeqLogEntry
-     */
-    @NotNull
-    protected String getLogEntryJsonString(SeqLogEntry logEntry) {
-        String json = "";
-        try {
-            json = JsonUtil.toJson(logEntry);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            addStatus(new ErrorStatus("ERROR SERIALIZING OBJECT" + logEntry,this));
-        } finally {
-            json = json.replaceAll("\n", "");
-        }
-        return json + "\n";
-    }
+	@Override
+	public String doLayout(ILoggingEvent event) {
+		return this.getLogEntryJsonString(new SeqLogEntry(event, dateFormat));
+	}
+
+	/**
+	 * Serializes a SeqLogEntry as a json string
+	 * 
+	 * @param logEntry
+	 * @return json formatted String of the SeqLogEntry
+	 */
+	@NotNull
+	protected String getLogEntryJsonString(SeqLogEntry logEntry) {
+		String json = "";
+		try {
+			json = jacksonObjectMapper.writeValueAsString(logEntry);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			addStatus(new ErrorStatus("ERROR SERIALIZING OBJECT" + logEntry, this));
+		} finally {
+			json = json.replaceAll("\n", "");
+		}
+		return json + "\n";
+	}
 }
+
