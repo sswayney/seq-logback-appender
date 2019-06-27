@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-//**
+ /**
  * Base Class responsible for formatting ILoggingEvents as json objects to be sent to seq server
  */
 public class SeqLogEventLayout extends LayoutBase<ILoggingEvent> {
