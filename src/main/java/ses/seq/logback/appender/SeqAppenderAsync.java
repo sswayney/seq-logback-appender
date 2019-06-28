@@ -13,7 +13,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -159,7 +158,6 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
      * Returns the current log list formatted to be posted to seq server
      * @return formatted event string
      */
-    @NotNull
     private String getPostBody() {
         StringBuilder bodyString = new StringBuilder();
         for(String eventStr : eventList) {

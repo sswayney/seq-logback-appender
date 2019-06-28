@@ -3,8 +3,9 @@ package ses.seq.logback.appender;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.LayoutBase;
 import ch.qos.logback.core.status.ErrorStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.jetbrains.annotations.NotNull;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -29,7 +30,6 @@ public class SeqLogEventLayout extends LayoutBase<ILoggingEvent> {
 	 * @param logEntry
 	 * @return json formatted String of the SeqLogEntry
 	 */
-	@NotNull
 	protected String getLogEntryJsonString(SeqLogEntry logEntry) {
 		String json = "";
 		try {
