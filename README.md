@@ -25,7 +25,7 @@ Add Dependency
 ```
 #### Gradle
 Add Repo
-```xml
+```gradle
 	allprojects {
 		repositories {
 			...
