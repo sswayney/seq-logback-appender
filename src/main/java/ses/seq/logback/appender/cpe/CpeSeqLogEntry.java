@@ -1,4 +1,4 @@
-package com.conversantmedia.cpeui.shared.util.seq.cpe;
+package ses.seq.logback.appender.cpe;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.conversantmedia.cpeui.shared.constants.Constants;

@@ -1,20 +1,15 @@
-package com.conversantmedia.cpeui.shared.util.seq;
+package ses.seq.logback.appender;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.LayoutBase;
 import ch.qos.logback.core.status.ErrorStatus;
-
-import com.conversantmedia.cpeui.shared.constants.Constants;
-import com.conversantmedia.cpeui.shared.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
 
-//**
+ /**
  * Base Class responsible for formatting ILoggingEvents as json objects to be sent to seq server
  */
 public class SeqLogEventLayout extends LayoutBase<ILoggingEvent> {
