@@ -1,4 +1,4 @@
-package com.conversantmedia.cpeui.shared.util.seq;
+package ses.seq.logback.appender;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Layout;
