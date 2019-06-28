@@ -2,6 +2,8 @@
 
 Send logback log events to a seq server
 
+[![Build Status](https://travis-ci.com/sswayney/seq-logback-appender.svg?branch=master)](https://travis-ci.com/sswayney/seq-logback-appender)
+
 ## Usage
 
 Add the required properties to your application.yaml file. Note, batchCount defaults to 1.
