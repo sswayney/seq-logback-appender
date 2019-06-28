@@ -2,30 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d77ef286-e11a-4915-8976-b8934575aee1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/emacs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ses/seq/logback/appender/Library.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ses/seq/logback/appender/LibraryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/com.conversantmedia.logback.seqlogback.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/com.conversantmedia.logback.seqlogback.test.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/seq-logback-settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/seq-logback-settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seq/SeqAppenderAsync.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ses/seq/logback/appender/SeqAppenderAsync.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seq/SeqLogEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ses/seq/logback/appender/SeqLogEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seq/SeqLogEventLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ses/seq/logback/appender/SeqLogEventLayout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seq/cpe/CpeSeqLogEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ses/seq/logback/appender/cpe/CpeSeqLogEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seq/cpe/CpeSeqLogEventLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ses/seq/logback/appender/cpe/CpeSeqLogEventLayout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seq/cpe/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ses/seq/logback/appender/cpe/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/seqlogback/.gradle/" />
     <ignored path="$PROJECT_DIR$/seqlogback/build/" />
@@ -163,7 +141,11 @@
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -217,6 +199,7 @@
         <option value="$PROJECT_DIR$/src/main/java/ses/seq/logback/appender/SeqLogEventLayout.java" />
         <option value="$PROJECT_DIR$/src/main/java/ses/seq/logback/appender/cpe/CpeSeqLogEntry.java" />
         <option value="$PROJECT_DIR$/src/main/java/ses/seq/logback/appender/cpe/CpeSeqLogEventLayout.java" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
       </list>
     </option>
   </component>
@@ -385,10 +368,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8240000" />
+    <option name="totallyTimeSpent" value="8991000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="23" width="1920" height="1057" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973376" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -570,6 +554,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
         </state>
       </provider>
     </entry>
