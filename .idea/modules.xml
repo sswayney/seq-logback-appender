@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.conversantmedia.logback.seqlogback.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.conversantmedia.logback.seqlogback.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.conversantmedia.logback.seqlogback.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.conversantmedia.logback.seqlogback.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/seq-logback-appender.iml" filepath="$PROJECT_DIR$/.idea/seq-logback-appender.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seq-logback-appender.main.iml" filepath="$PROJECT_DIR$/.idea/modules/seq-logback-appender.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seq-logback-appender.test.iml" filepath="$PROJECT_DIR$/.idea/modules/seq-logback-appender.test.iml" />
     </modules>
   </component>
 </project>

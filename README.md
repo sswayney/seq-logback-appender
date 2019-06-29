@@ -2,13 +2,7 @@
 
 Send logback log events to a seq server
 
-## NOTE!
-This was literally copy pasted out of other code and placed into this repo.
-It still has dependencies from original project and the namespaces haven't been changed.
-I'd like to make it a solid reusable library.
-I know there are more generic libraries we could use as well. 
-
-If you want to help me, that would be cool, andrew...  :)
+[![Build Status](https://travis-ci.com/sswayney/seq-logback-appender.svg?branch=master)](https://travis-ci.com/sswayney/seq-logback-appender)
 
 ## Usage
 

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="com.conversantmedia.logback.seqlogback.main" target="1.8" />
       <module name="com.conversantmedia.logback.seqlogback.test" target="1.8" />
+      <module name="seq-logback-appender.main" target="1.8" />
+      <module name="seq-logback-appender.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
