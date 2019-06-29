@@ -3,6 +3,8 @@
 Send logback log events to a seq server
 
 [![Build Status](https://travis-ci.com/sswayney/seq-logback-appender.svg?branch=master)](https://travis-ci.com/sswayney/seq-logback-appender)
+[![](https://jitpack.io/v/sswayney/seq-logback-appender.svg)](https://jitpack.io/#sswayney/seq-logback-appender)
+
 
 ## Install
 #### Maven
