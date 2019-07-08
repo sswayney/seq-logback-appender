@@ -80,11 +80,11 @@ Then set the seq layout class to use in your logback settings file.
 
 #### Example:
 
-1: Extend SeqLogEntry to add your fields
+1: Extend SeqLogEntry to add your fields. Note, I'm using lombok to create my getter/setters. You could do the same or create your own getter setters.
 ```java
 @Getter
 @Setter
-public class CpeSeqLogEntry extends SeqLogEntry {
+public class MyCustomSeqLogEntry extends SeqLogEntry {
 
     @JsonProperty("User")
     private String user;
@@ -115,7 +115,7 @@ public class CpeSeqLogEntry extends SeqLogEntry {
      * @param eventObject The logback event
      * @param dateFormat Date format for timestamp
      */
-    public CpeSeqLogEntry(ILoggingEvent eventObject, Format dateFormat) {
+    public MyCustomSeqLogEntry(ILoggingEvent eventObject, Format dateFormat) {
         super(eventObject, dateFormat);
         Map<String, String> mdc = eventObject.getMDCPropertyMap();
         this.setUser(mdc.get(Constants.LOGGED_ON_USER_NAME));
@@ -131,13 +131,13 @@ public class CpeSeqLogEntry extends SeqLogEntry {
 
 ```
 
-2: Extend SeqLogEventLayout to use your new CpeSeqLogEntry class
+2: Extend SeqLogEventLayout to use your new MyCustomSeqLogEntry class
 ```java
-public class CpeSeqLogEventLayout extends SeqLogEventLayout {
+public class MyCustomSeqLogEventLayout extends SeqLogEventLayout {
 
     @Override
     public String doLayout(ILoggingEvent event) {
-        return this.getLogEntryJsonString(new CpeSeqLogEntry(event, this.dateFormat));
+        return this.getLogEntryJsonString(new MyCustomSeqLogEntry(event, this.dateFormat));
     }
 }
 ```
@@ -145,7 +145,7 @@ public class CpeSeqLogEventLayout extends SeqLogEventLayout {
 3: Add SEQ_LAYOUT property to your base logback settings xml file to use your new extended layout class.
 Make sure the namespace to your layout is correct.
 ```xml
-    <property scope="context" name="SEQ_LAYOUT" value="com.conversantmedia.cpeui.shared.util.seq.cpe.CpeSeqLogEventLayout"/>
+    <property scope="context" name="SEQ_LAYOUT" value="com.your.namespace.MyCustomSeqLogEventLayout"/>
     <include resource="seq-logback-settings.xml" />
 ```
 Done. Now these new fields will be added to all your logging events. 
