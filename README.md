@@ -3,6 +3,44 @@
 Send logback log events to a seq server
 
 [![Build Status](https://travis-ci.com/sswayney/seq-logback-appender.svg?branch=master)](https://travis-ci.com/sswayney/seq-logback-appender)
+[![](https://jitpack.io/v/sswayney/seq-logback-appender.svg)](https://jitpack.io/#sswayney/seq-logback-appender)
+
+
+## Install
+#### Maven
+Add Repo
+```xml
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+```
+Add Dependency
+```xml
+	<dependency>
+	    <groupId>com.github.sswayney</groupId>
+	    <artifactId>seq-logback-appender</artifactId>
+	    <version>VERSION</version>
+	</dependency>
+```
+#### Gradle
+Add Repo
+```gradle
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+Add Dependency
+```xml
+	dependencies {
+	        implementation 'com.github.sswayney:seq-logback-appender:VERSION'
+	}
+```
 
 ## Usage
 
