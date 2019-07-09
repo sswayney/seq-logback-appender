@@ -1,4 +1,4 @@
-package ses.seq.logback.appender;
+package ses.seq.logback.appender.layout.base;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.LayoutBase;

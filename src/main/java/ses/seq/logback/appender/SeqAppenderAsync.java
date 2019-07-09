@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
+
 /**
  * SeqAppenderAsync handles logback logging events and posts them to a seq server inject end point
  * Given the configurations passed to the class, the post may contain multiple events
