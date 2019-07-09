@@ -1,4 +1,4 @@
-package ses.seq.logback.appender;
+package ses.seq.logback.appender.layout.base;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,7 +9,7 @@ import java.text.Format;
 import java.util.Date;
 
 /**
- * Model decorated to help with the serialization of a seq log event
+ * Base Model decorated to help with the serialization of a seq log event
  * Contains the base seq params and basic logback params
  */
 @Getter
