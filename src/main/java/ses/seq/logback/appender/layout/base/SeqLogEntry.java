@@ -42,7 +42,7 @@ public class SeqLogEntry implements java.io.Serializable {
     private String threadName;
 
     @JsonProperty("LogObject")
-    private ObjectAppendingMarker logObject;
+    private Object logObject;
 
     /**
      * Constructor
@@ -56,7 +56,7 @@ public class SeqLogEntry implements java.io.Serializable {
         this.setLevel(eventObject.getLevel().levelStr);
         this.setThreadName(eventObject.getThreadName());
         try {
-            this.setLogObject((ObjectAppendingMarker)eventObject.getMarker());
+            this.setLogObject(((ObjectAppendingMarker)eventObject.getMarker()).getObject());
         } catch(Exception e) {}
     }
 }
