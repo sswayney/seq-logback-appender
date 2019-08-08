@@ -144,10 +144,12 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
     @Override
     public void stop() {
         try {
-            do {
-            	//Wait until any current post is done
-            	//before we try abd close the connection
-            }while(!execute.isDone());
+            if (execute != null) {
+                do {
+                    //Wait until any current post is done
+                    //before we try abd close the connection
+                } while (!execute.isDone());
+            }
             httpClient.close();
         } catch (IOException e) {
             addStatus(new ErrorStatus("Error on closing httpClient in SeqAppender" + e.getMessage(),this));
