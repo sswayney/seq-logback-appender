@@ -11,8 +11,8 @@
     <springProperty name="fileName" source="seq.fileName"/>
 
     <!-- Default layout class and overrideable seq layout property to be overridden in main settings context-->
-    <property name="DEFAULT_SEQ_LAYOUT" value="ses.seq.logback.appender.SeqLogEventLayout"/>
-    <property name="SEQ_LAYOUT" value="${SEQ_LAYOUT}:-${DEFAULT_SEQ_LAYOUT}"/>
+    <property name="DEFAULT_SEQ_LAYOUT" value="ses.seq.logback.appender.layout.base.SeqLogEventLayout"/>
+    <property name="SEQ_LAYOUT" value="${SEQ_LAYOUT:-${DEFAULT_SEQ_LAYOUT}}"/>
 
     <!--main functional appender, do not use directly unless you don't want it to be async-->
     <appender name="ASYNC_SEQ" class="ses.seq.logback.appender.SeqAppenderAsync">
