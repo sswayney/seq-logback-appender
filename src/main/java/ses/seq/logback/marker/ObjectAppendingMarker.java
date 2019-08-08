@@ -19,8 +19,8 @@ public class ObjectAppendingMarker extends SingleFieldAppendingMarker {
      */
     private final Object object;
 
-    public static LogstashMarker append(String fieldName, Object object) {
-        return new ObjectAppendingMarker(fieldName, object);
+    public static LogstashMarker append(Object object) {
+        return new ObjectAppendingMarker("log_object", object);
     }
 
     public ObjectAppendingMarker(String fieldName, Object object) {
