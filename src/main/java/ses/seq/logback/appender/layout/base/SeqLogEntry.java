@@ -4,6 +4,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import ses.seq.logback.marker.ObjectAppendingMarker;
 
 import java.text.Format;
 import java.util.Date;
@@ -40,6 +41,9 @@ public class SeqLogEntry implements java.io.Serializable {
     @JsonProperty("ThreadName")
     private String threadName;
 
+    @JsonProperty("LogObject")
+    private ObjectAppendingMarker logObject;
+
     /**
      * Constructor
      * @param eventObject The logback event
@@ -51,5 +55,8 @@ public class SeqLogEntry implements java.io.Serializable {
         this.setMessage(eventObject.getFormattedMessage());
         this.setLevel(eventObject.getLevel().levelStr);
         this.setThreadName(eventObject.getThreadName());
+        try {
+            this.setLogObject((ObjectAppendingMarker)eventObject.getMarker());
+        } catch(Exception e) {}
     }
 }
