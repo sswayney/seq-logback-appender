@@ -1,6 +1,7 @@
 package ses.seq.logback.appender.layout.base;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.classic.spi.ThrowableProxyUtil;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,26 +24,17 @@ public class SeqLogEntry implements java.io.Serializable {
     @JsonProperty("@m")
     private String message;
 
-    @JsonProperty("@mt")
-    private String messageTemplate;
-
-    @JsonProperty("@x")
-    private String exception;
-
     @JsonProperty("@l")
     private String level;
-
-    @JsonProperty("@i")
-    private String eventId;
-
-    @JsonProperty("@r")
-    private String renderings;
 
     @JsonProperty("ThreadName")
     private String threadName;
 
     @JsonProperty("LogObject")
     private Object logObject;
+
+    @JsonProperty("StackTrace")
+    private String stackTrace;
 
     /**
      * Constructor
@@ -53,10 +45,13 @@ public class SeqLogEntry implements java.io.Serializable {
         Date date = new Date(eventObject.getTimeStamp());
         this.setTime(dateFormat.format(date));
         this.setMessage(eventObject.getFormattedMessage());
-        this.setLevel(eventObject.getLevel().levelStr);
+        this.setLevel(eventObject.getLevel().toString());
         this.setThreadName(eventObject.getThreadName());
         try {
             this.setLogObject(((ObjectAppendingMarker)eventObject.getMarker()).getObject());
+        } catch(Exception e) {}
+        try {
+            this.setStackTrace(ThrowableProxyUtil.asString(eventObject.getThrowableProxy()));
         } catch(Exception e) {}
     }
 }
