@@ -33,8 +33,8 @@ public class SeqLogEntry implements java.io.Serializable {
     @JsonProperty("LogObject")
     private Object logObject;
 
-    @JsonProperty("StackTrace")
-    private String stackTrace;
+    @JsonProperty("@x")
+    private String exception;
 
     /**
      * Constructor
@@ -51,7 +51,9 @@ public class SeqLogEntry implements java.io.Serializable {
             this.setLogObject(((ObjectAppendingMarker)eventObject.getMarker()).getObject());
         } catch(Exception e) {}
         try {
-            this.setStackTrace(ThrowableProxyUtil.asString(eventObject.getThrowableProxy()));
+            String stackTrace = ThrowableProxyUtil.asString(eventObject.getThrowableProxy());
+            if (stackTrace != null && !stackTrace.isEmpty())
+                this.setException(stackTrace);
         } catch(Exception e) {}
     }
 }
