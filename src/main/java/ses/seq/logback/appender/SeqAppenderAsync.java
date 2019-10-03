@@ -10,12 +10,12 @@ import lombok.Setter;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -110,18 +110,11 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
     private void postLogs() {
         String bodyString = getPostBody();
         eventList.clear();
-        HttpPost post = null;
-        try {
-            StringEntity entity = new StringEntity(bodyString);
-            post = new HttpPost(getServerIngestUrl()) {{
-                setEntity(entity);
-                setHeader(SEQ_API_TOKEN_HEADER_NAME, apiKey);
-            }};
-        } catch (UnsupportedEncodingException e) {
-            addStatus(new ErrorStatus("Error creating header for postLogs to seq : " + e.getMessage(),this));
-            addStatus(new ErrorStatus("Post body: " + bodyString,this));
-            return;
-        }
+        StringEntity entity = new StringEntity(bodyString, ContentType.APPLICATION_JSON);
+        HttpPost post = new HttpPost(getServerIngestUrl()) {{
+            setEntity(entity);
+            setHeader(SEQ_API_TOKEN_HEADER_NAME, apiKey);
+        }};
         try {
              execute = httpClient.execute(post, null);
             //This is required because if there is any delay in communication

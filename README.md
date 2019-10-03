@@ -72,6 +72,7 @@ Then, you can add the appenders to your profiles. "SEQ" sends logs to server and
         </root>
     </springProfile>
 ```
+<<<<<<< HEAD
 
 To use the logs in Java you can do something like this:
 
@@ -99,9 +100,7 @@ To use the logs in Java you can do something like this:
     }
 ```
 
-Done...
- 
- But wait, there's MORE!
+Done... It should log basic messages.
 
 ## Adding more data to log
 The base Seq Log Event Layout SeqLogEventLayout will map the basic logging data to the base SeqLogEntry
@@ -179,6 +178,62 @@ Make sure the namespace to your layout is correct.
     <include resource="seq-logback-settings.xml" />
 ```
 Done. Now these new fields will be added to all your logging events. 
+
+
+## Logging basic request info with your log using LogBack's MDCInsertingServletFilter
+Logback has filters to add basic request info to your MDC. You can have that added to your logs too. Much like above, but instead of extending the basic SeqLogEntry, you would just extend MDCWebReqSeqLogEntry. And instead of extending SeqLogEventLayout you would extend MDCWebReqSeqLogLayout. But first you need to add LogBack's MDCInsertingServletFilter to your project. 
+
+1: Add MDCInsertingServletFilter to your project. See https://logback.qos.ch/manual/mdc.html#mis if you use a web.xml. If not just do the below.
+```java
+import ch.qos.logback.classic.helpers.MDCInsertingServletFilter;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@Component
+public class CpeMDCInsertingServletFilter extends MDCInsertingServletFilter {
+}
+```
+
+2: Extend MDCWebReqSeqLogEntry to add your fields. Note, I'm using lombok to create my getter/setters. You could do the same or create your own getter setters.
+```java
+@Getter
+@Setter
+public class MyCustomSeqLogEntry extends MDCWebReqSeqLogEntry { 
+
+    // add your own custom fields here if you would like
+    
+    /**
+     * Constructor
+     * @param eventObject The logback event
+     * @param dateFormat Date format for timestamp
+     */
+    public MyCustomSeqLogEntry(ILoggingEvent eventObject, Format dateFormat) {
+        super(eventObject, dateFormat);
+	// set any custom fields here
+    }
+}
+```
+
+3: Extend MDCWebReqSeqLogLayout to use your new MyCustomSeqLogEntry class
+```java
+public class MyCustomSeqLogEventLayout extends MDCWebReqSeqLogLayout {
+
+    @Override
+    public String doLayout(ILoggingEvent event) {
+        return this.getLogEntryJsonString(new MyCustomSeqLogEntry(event, this.dateFormat));
+    }
+}
+```
+
+4: Add SEQ_LAYOUT property to your base logback settings xml file to use your new extended layout class.
+Make sure the namespace to your layout is correct.
+```xml
+    <property scope="context" name="SEQ_LAYOUT" value="com.your.namespace.MyCustomSeqLogEventLayout"/>
+    <include resource="seq-logback-settings.xml" />
+```
+
 
 ## Tips
 Remember to use debug="true" in main logback configuration file when trying to set up.
