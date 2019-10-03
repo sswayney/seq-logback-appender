@@ -45,30 +45,66 @@ Add Dependency
 ## Usage
 
 Add the required properties to your application.yaml file. Note, batchCount defaults to 1.
+
+Also Note (Issue #12) if you set a large batch count then applications that log infrequently may be holding messages in the buffer for an extended period of time. A scheduled job that runs once per day for example may have finished processing, but you won't see the final messages until the job starts the following day.
 ```yaml
 seq:
   batchCount: 5
   apiKey: YOURAPIKEY
   server: http://URLTOYOURSEQSERVER
   port: 80
-  fileName: YOURPROJECTNAME.seq.log
 ```
 
 
-For each project, include the seq logback settings file in your main logback settings file
+For each project, include the seq logback settings file in your main logback settings file, and you must include a project name property which will be used for the logging filename
 ```xml
+    <property name="PROJECT_NAME" value="my-service"/>
     <include resource="seq-logback-settings.xml" />
 ```
 
-Then, you can add the appenders to your profiles. "SEQ" sends logs to server and "SEQ-FILE" logs to a file.
+Then, you can add the appenders to your profiles. "SEQ" sends logs to server and "FILE" logs to a file under applogs/PROJECT_NAME.log and CONSOLE to the console
 ```xml
     <springProfile name="dev">
         <root level="INFO">
             <appender-ref ref="SEQ" />
-            <appender-ref ref="SEQ-FILE" />
+            <appender-ref ref="FILE" />
+            <appender-ref ref="CONSOLE" />
         </root>
     </springProfile>
 ```
+
+You should also add this to your .gitignore file
+```git
+    ### logs folder ###
+    applogs
+```
+
+To use the logs in Java you can do something like this:
+
+```java
+    import lombok.extern.slf4j.Slf4j;
+    import static ses.seq.logback.marker.ObjectAppendingMarker.append;
+    
+    @Slf4j
+    public class MyClass {
+    
+        public void myMethod(String input, JsonPojo pojo) {
+            //basic logs message
+            log.info("Entering test method, input: {}", input);
+    
+            //json object logging for debugging
+            log.info(append(pojo), "Object state");
+    
+            try {
+                Integer.parseInt("FAIL");
+            } catch (NumberFormatException e) {
+                //exception logging
+                log.error("Exception in complex method", e);
+            }
+        }
+    }
+```
+
 Done... It should log basic messages.
 
 ## Adding more data to log
