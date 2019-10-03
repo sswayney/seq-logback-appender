@@ -51,24 +51,52 @@ seq:
   apiKey: YOURAPIKEY
   server: http://URLTOYOURSEQSERVER
   port: 80
-  fileName: YOURPROJECTNAME.seq.log
 ```
 
 
-For each project, include the seq logback settings file in your main logback settings file
+For each project, include the seq logback settings file in your main logback settings file, and you must include a project name property which will be used for the logging filename
 ```xml
+    <property name="PROJECT_NAME" value="my-service"/>
     <include resource="seq-logback-settings.xml" />
 ```
 
-Then, you can add the appenders to your profiles. "SEQ" sends logs to server and "SEQ-FILE" logs to a file.
+Then, you can add the appenders to your profiles. "SEQ" sends logs to server and "FILE" logs to a file under applogs/PROJECT_NAME.log and CONSOLE to the console
 ```xml
     <springProfile name="dev">
         <root level="INFO">
             <appender-ref ref="SEQ" />
-            <appender-ref ref="SEQ-FILE" />
+            <appender-ref ref="FILE" />
+            <appender-ref ref="CONSOLE" />
         </root>
     </springProfile>
 ```
+
+To use the logs in Java you can do something like this:
+
+```java
+    import lombok.extern.slf4j.Slf4j;
+    import ses.seq.logback.marker.ObjectAppendingMarker;
+    
+    @Slf4j
+    public class MyClass {
+    
+        public void myMethod(String input, JsonPojo pojo) {
+            //basic logs message
+            log.info("Entering test method, input: {}", input);
+    
+            //json object logging for debugging
+            log.info(ObjectAppendingMarker.append(pojo), "Object state");
+    
+            try {
+                Integer.parseInt("FAIL");
+            } catch (NumberFormatException e) {
+                //exception logging
+                log.error("Exception in complex method", e);
+            }
+        }
+    }
+```
+
 Done...
  
  But wait, there's MORE!
