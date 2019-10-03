@@ -46,7 +46,7 @@ Add Dependency
 
 Add the required properties to your application.yaml file. Note, batchCount defaults to 1.
 
-<small>Also Note (Issue #12) if you set a large batch count then applications that log infrequently may be holding messages in the buffer for an extended period of time. A scheduled job that runs once per day for example may have finished processing, but you won't see the final messages until the job starts the following day.</small>
+Also Note (Issue #12) if you set a large batch count then applications that log infrequently may be holding messages in the buffer for an extended period of time. A scheduled job that runs once per day for example may have finished processing, but you won't see the final messages until the job starts the following day.
 ```yaml
 seq:
   batchCount: 5
@@ -71,6 +71,12 @@ Then, you can add the appenders to your profiles. "SEQ" sends logs to server and
             <appender-ref ref="CONSOLE" />
         </root>
     </springProfile>
+```
+
+You should also add this to your .gitignore file
+```git
+    ### logs folder ###
+    applogs
 ```
 
 To use the logs in Java you can do something like this:
