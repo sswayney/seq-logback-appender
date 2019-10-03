@@ -72,7 +72,6 @@ Then, you can add the appenders to your profiles. "SEQ" sends logs to server and
         </root>
     </springProfile>
 ```
-<<<<<<< HEAD
 
 To use the logs in Java you can do something like this:
 
