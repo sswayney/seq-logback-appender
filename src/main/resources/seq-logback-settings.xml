@@ -1,7 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <included>
     <!--SEQ LOGGING-->
     <!--Include this file as a resource in your main logback settings per project-->
     <!--You may override SEQ_LAYOUT class to use your own-->
+
+    <!--Spring defaults-->
+    <include resource="logback_defaults.xml"/>
 
     <!--Properties from application.yaml-->
     <springProperty name="batchCount" source="seq.batchCount"/>
@@ -29,14 +33,26 @@
     </appender>
 
     <!--Log all events to a rolling file in case of an issue-->
-    <appender name="SEQ-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>applogs/${PROJECT_NAME}.log</file>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="${SEQ_LAYOUT}" />
         </encoder>
-        <file>${fileName}</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- daily rollover -->
-            <fileNamePattern>${fileName}.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+        <!-- 10 days of logs split into 50mb files with a total cap of 300mb of log space -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>applogs/${PROJECT_NAME}.%d{yyyy-MM-dd}.log.%i</FileNamePattern>
+            <maxFileSize>50MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>300MB</totalSizeCap>
         </rollingPolicy>
+    </appender>
+
+    <!--handy console appender-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
     </appender>
 </included>
