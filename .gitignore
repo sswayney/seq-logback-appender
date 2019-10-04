@@ -2,6 +2,5 @@
 .gradle
 
 # Ignore Gradle build output directory
-build
 /.idea/
-/out/
+/applogs/
