@@ -9,6 +9,7 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'maven-publish'
     id 'com.gradle.build-scan' version '2.1'
 }
 
@@ -20,11 +21,11 @@ buildScan {
 /*
     LIB Version
  */
-version = '1.0.3'
+version = '1.0.4'
+group = 'com.github.sswayney'
 
 repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
+    mavenLocal()
     jcenter()
     mavenCentral()
 }
@@ -40,6 +41,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     compileOnly "org.projectlombok:lombok:${lombok_version}"
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
     annotationProcessor "org.projectlombok:lombok:${lombok_version}"
 
     compile "ch.qos.logback:logback-classic:${logback_version}"
@@ -47,6 +49,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.4.1'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1'
+    compile 'net.logstash.logback:logstash-logback-encoder:6.1'
     compile 'net.logstash.logback:logstash-logback-encoder:6.1'
 }
 
@@ -56,3 +59,30 @@ jar {
                 'Implementation-Version': project.version)
     }
 }
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+}
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier = 'javadoc'
+}
+
+
+publishing {
+    publications {
+        seqLogBack(MavenPublication) {
+            groupId "${project.group}"
+            artifactId "${project.name}"
+            version "${project.version}"
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+//            artifact("$buildDir/outputs/aar/${library_name}-debug.aar")
+            // Add javadocs and sources artifact
+            // Add/Exclude project dependencies via pom.withXml
+        }
+    }
+}
+

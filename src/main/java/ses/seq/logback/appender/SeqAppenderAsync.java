@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 
+import static ses.seq.logback.constants.Constants.*;
+
 /**
  * SeqAppenderAsync handles logback logging events and posts them to a seq server inject end point
  * Given the configurations passed to the class, the post may contain multiple events
@@ -30,8 +32,6 @@ import java.util.concurrent.Future;
  */
 public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
-    private final String SEQ_API_TOKEN_HEADER_NAME = "X-Seq-ApiKey";
-    private final String INGEST_ENDPOINT = "/api/events/raw?clef";
     private final List<String> eventList = new ArrayList<>();
 
     @Getter @Setter private Layout<ILoggingEvent> layout;
@@ -40,7 +40,7 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
     @Getter @Setter private String apiKey = "";
     @Getter @Setter private String server = "";
     @Getter @Setter private String port = "";
-    @Getter @Setter private int eventBatchCount = 1;
+    @Getter @Setter private int eventBatchCount = DEFAULT_EVENT_BATCH_COUNT;
     
     private  CloseableHttpAsyncClient httpClient;
     private Future<HttpResponse> execute;
@@ -76,7 +76,7 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
 
     /**
      * Main entry point for our use case
-     * @param eventObject
+     * @param eventObject an ILoggingEvent object
      */
     @Override
     protected void append(ILoggingEvent eventObject) {
@@ -86,7 +86,7 @@ public class SeqAppenderAsync extends UnsynchronizedAppenderBase<ILoggingEvent> 
 
     /**
      * Serializes the log event as an json string and adds it to the log list for later processing
-     * @param eventObject
+     * @param eventObject an ILoggingEvent
      */
     private void addLogEventToLogList(ILoggingEvent eventObject) {
         String json = this.layout.doLayout(eventObject);

@@ -27,7 +27,7 @@ public class SeqLogEventLayout extends LayoutBase<ILoggingEvent> {
 	/**
 	 * Serializes a SeqLogEntry as a json string
 	 * 
-	 * @param logEntry
+	 * @param logEntry the SeqLogEntry instance
 	 * @return json formatted String of the SeqLogEntry
 	 */
 	protected String getLogEntryJsonString(SeqLogEntry logEntry) {
