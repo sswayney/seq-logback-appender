@@ -42,6 +42,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:${lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${lombok_version}"
 
+    compile "org.springframework.boot:spring-boot-starter:2.1.3.RELEASE"
     compile "ch.qos.logback:logback-classic:${logback_version}"
     compile "org.apache.httpcomponents:httpasyncclient:4.1.4"
     compile 'com.fasterxml.jackson.core:jackson-core:2.4.1'
@@ -51,6 +52,25 @@ dependencies {
 }
 
 jar {
+    println "remove_dev_console_from_build: ${remove_dev_console_from_build}"
+
+    if ("${remove_dev_console_from_build}" == 'true') {
+        println 'Removing dev console from build'
+        sourceSets {
+            main {
+                // Remove dev console stuff from jar
+                java {
+                    exclude '**/DevConsole.java'
+                }
+                resources {
+                    exclude 'logback-spring.xml', 'application.yaml'
+                }
+            }
+        }
+    } else {
+        println 'Leaving dev console in build'
+    }
+
     manifest {
         attributes('Implementation-Title': project.name,
                 'Implementation-Version': project.version)

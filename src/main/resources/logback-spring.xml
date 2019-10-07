@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--FILE IS REMOVED FROM BUILD AND IS ONLY USED FOR DEV CONSOLE-->
+<configuration debug="true">
+
+    <logger name="org.apache" level="WARN" />
+    <logger name="httpclient" level="WARN" />
+    <!--<logger name="o.s.b.f.s.DefaultListableBeanFactory" level="ERROR" />-->
+    <!--<logger name="org.springframework.boot.autoconfigure.logging" level="INFO"/>-->
+
+    <logger name="org.springframework" level="WARN"/>
+
+    <property name="PROJECT_NAME" value="my-service"/>
+    <property resource="application.yaml" />
+    <include resource="seq-logback-settings.xml" />
+    <!--end seq logging-->
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="SEQ" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

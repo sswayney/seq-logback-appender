@@ -1,0 +1,8 @@
+#FILE IS REMOVED FROM BUILD AND IS ONLY USED FOR DEV CONSOLE
+spring:
+  profiles: QA
+seq:
+  batchCount: 1
+  apiKey: rv4wtRZjYEgKJKwiuIUN
+  server: http://ui102-dev.sjc.cpe.vcm.cnvr.net
+  port: 5341
