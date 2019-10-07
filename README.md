@@ -185,10 +185,11 @@ Make sure the namespace to your layout is correct.
 Done. Now these new fields will be added to all your logging events. 
 
 
-## Logging basic request info with your log using LogBack's MDCInsertingServletFilter
-Logback has filters to add basic request info to your MDC. You can have that added to your logs too. Much like above, but instead of extending the basic SeqLogEntry, you would just extend MDCWebReqSeqLogEntry. And instead of extending SeqLogEventLayout you would extend MDCWebReqSeqLogLayout. But first you need to add LogBack's MDCInsertingServletFilter to your project. 
+## Logging request info using MDCWebReqInsertingFilter
+    Fields: ReqRemoteHost, ReqUserAgent, ReqURI, ReqURL, ReqQueryString, ReqMethod, ReqForwardedFor, ReqReferer, ReqToken, AppHostName
+Set up is much like above, but instead of extending the basic SeqLogEntry, you would just extend MDCWebReqSeqLogEntry. And instead of extending SeqLogEventLayout you would extend MDCWebReqSeqLogLayout. But first you need to add LogBack's MDCWebReqInsertingFilter to your project. 
 
-1: Add MDCInsertingServletFilter to your project. See https://logback.qos.ch/manual/mdc.html#mis if you use a web.xml. If not just do the below.
+1: Add MDCWebReqInsertingFilter to your project. See https://logback.qos.ch/manual/mdc.html#mis if you use a web.xml. If not just do the below.
 ```java
 import ch.qos.logback.classic.helpers.MDCInsertingServletFilter;
 import org.springframework.core.Ordered;
@@ -197,7 +198,8 @@ import org.springframework.stereotype.Component;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
-public class CpeMDCInsertingServletFilter extends MDCInsertingServletFilter {
+public class MyMDCInsertingServletFilter extends MDCWebReqInsertingFilter {
+    // you could override the doFilter method to add more to the mdc here if you wanted
 }
 ```
 
@@ -216,7 +218,7 @@ public class MyCustomSeqLogEntry extends MDCWebReqSeqLogEntry {
      */
     public MyCustomSeqLogEntry(ILoggingEvent eventObject, Format dateFormat) {
         super(eventObject, dateFormat);
-	// set any custom fields here
+	// set any custom fields here you may have place in the mdc via the overridden doFilter
     }
 }
 ```
@@ -236,6 +238,7 @@ public class MyCustomSeqLogEventLayout extends MDCWebReqSeqLogLayout {
 Make sure the namespace to your layout is correct.
 ```xml
     <property scope="context" name="SEQ_LAYOUT" value="com.your.namespace.MyCustomSeqLogEventLayout"/>
+    <property name="PROJECT_NAME" value="my-service"/>
     <include resource="seq-logback-settings.xml" />
 ```
 
