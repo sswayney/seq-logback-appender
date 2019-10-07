@@ -10,6 +10,8 @@ import ses.seq.logback.appender.layout.base.SeqLogEntry;
 import java.text.Format;
 import java.util.Map;
 
+import static ses.seq.logback.constants.Constants.*;
+
 /**
  * Extended Seq Log Entry Model decorated to help with the serialization of a seq log event when using the
  * LogBack MDCInsertingServletFilter. It will include the web request info in seq logs
@@ -44,6 +46,14 @@ public class MDCWebReqSeqLogEntry extends SeqLogEntry {
     @JsonProperty("ReqForwardedFor")
     private String reqForwardedFor;
 
+    @JsonProperty("ReqReferer")
+    private String referer;
+
+    @JsonProperty("ReqToken")
+    private String token;
+
+    @JsonProperty("AppHostName")
+    private String appHostName;
 
     /**
      * Constructor
@@ -62,5 +72,8 @@ public class MDCWebReqSeqLogEntry extends SeqLogEntry {
         this.setReqQueryString(mdc.get(ClassicConstants.REQUEST_QUERY_STRING));
         this.setReqMethod(mdc.get(ClassicConstants.REQUEST_METHOD));
         this.setReqForwardedFor(mdc.get(ClassicConstants.REQUEST_X_FORWARDED_FOR));
+        this.setReferer(mdc.get(REQUEST_REFERER));
+        this.setToken(mdc.get(REQUEST_AUTH_TOKEN));
+        this.setAppHostName(mdc.get(APP_HOST_NAME));
     }
 }
